@@ -40,7 +40,7 @@
             <div>
                 <h1 class="text-lg font-bold text-white flex items-center gap-2">
                     User Agent MPD-M3U8 Tester
-                    <span class="text-xs font-normal bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20">v1.1</span>
+                    <span class="text-xs font-normal bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20">v1.2</span>
                 </h1>
                 <p class="text-xs text-gray-400">أداة اختبار الروابط، الشفرات، واستخراج القنوات</p>
             </div>
@@ -59,18 +59,18 @@
     <!-- Main Container -->
     <div class="flex-1 flex overflow-hidden">
         
-        <!-- Right Section: Player & Diagnostics Log (في لغة RTL العنصر الأول يظهر على اليمين) -->
+        <!-- Right Section: Player & Parsed Channels -->
         <div class="w-1/2 flex flex-col bg-slate-950 p-4 gap-4 border-l border-slate-800">
             
             <!-- Video Player Window -->
-            <div class="w-full aspect-video bg-black rounded-xl border border-slate-800 overflow-hidden relative shadow-2xl flex items-center justify-center">
+            <div class="w-full aspect-video bg-black rounded-xl border border-slate-800 overflow-hidden relative shadow-2xl flex items-center justify-center flex-shrink-0">
                 <div id="playerContainer" class="w-full h-full">
                     <div id="jwplayerDiv" style="width: 100%; height: 100%;"></div>
                 </div>
             </div>
 
             <!-- Player Controls Toolbar -->
-            <div class="flex items-center justify-between bg-slate-900 p-3 rounded-xl border border-slate-800">
+            <div class="flex items-center justify-between bg-slate-900 p-3 rounded-xl border border-slate-800 flex-shrink-0">
                 <div class="flex items-center gap-2">
                     <span id="statusBadge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-800 text-gray-400 border border-slate-700">
                         <span class="w-2 h-2 rounded-full bg-gray-500"></span> غير متصل
@@ -82,33 +82,33 @@
                 </button>
             </div>
 
-            <!-- Diagnostic Log Console -->
-            <div class="flex-1 bg-slate-900 rounded-xl border border-slate-800 p-3 flex flex-col overflow-hidden">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-2 mb-2">
-                    <span class="text-xs font-bold text-gray-400 flex items-center gap-1.5">
-                        <i class="fa-solid fa-terminal text-blue-400"></i> سجل التشخيص والتصحيح (Log)
-                    </span>
-                    <button onclick="clearLog()" class="text-[10px] text-gray-500 hover:text-gray-300">تفريغ السجل</button>
+            <!-- Parsed Channels Wrapper (تم نقله لليمين ليأخذ المساحة المتبقية) -->
+            <div id="parsedChannelsWrapper" class="hidden bg-slate-900 p-4 rounded-xl border border-slate-800 flex-col overflow-hidden shadow-sm flex-1">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2 mb-3">
+                    <h3 class="text-xs font-bold text-gray-300">القنوات المستخرجة (<span id="parsedCount" class="text-emerald-400">0</span>)</h3>
+                    <span class="text-[10px] text-gray-500">اضغط على القناة للتشغيل</span>
                 </div>
-                <div id="logConsole" class="flex-1 font-mono text-[11px] overflow-y-auto space-y-1 text-gray-400 pr-1">
-                    <div class="text-blue-400/80">[System] الأداة جاهزة للاختبار...</div>
-                </div>
+                <div id="parsedList" class="flex-1 overflow-y-auto space-y-2 pr-1"></div>
             </div>
 
         </div>
 
-        <!-- Left Section: Parsed Channels & Input (العنصر الثاني يظهر على اليسار) -->
+        <!-- Left Section: Log & Input -->
         <div class="w-1/2 flex flex-col bg-slate-900/50">
             
             <div class="flex-1 overflow-y-auto p-4 space-y-4">
                 
-                <!-- Parsed Channels List Container (نقلناه لفوق) -->
-                <div id="parsedChannelsWrapper" class="hidden bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 shadow-sm">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                        <h3 class="text-xs font-bold text-gray-300">القنوات المستخرجة (<span id="parsedCount" class="text-emerald-400">0</span>)</h3>
-                        <span class="text-[10px] text-gray-500">اختر قناة للتشغيل أو اضغط أيقونة النسخ</span>
+                <!-- Diagnostic Log Console (تم نقله لليسار) -->
+                <div class="bg-slate-900 rounded-xl border border-slate-800 p-3 flex flex-col overflow-hidden shadow-sm h-56 flex-shrink-0">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2 mb-2">
+                        <span class="text-xs font-bold text-gray-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-terminal text-blue-400"></i> سجل التشخيص والتصحيح (Log)
+                        </span>
+                        <button onclick="clearLog()" class="text-[10px] text-gray-500 hover:text-gray-300">تفريغ السجل</button>
                     </div>
-                    <div id="parsedList" class="space-y-2 max-h-[250px] overflow-y-auto pr-1"></div>
+                    <div id="logConsole" class="flex-1 font-mono text-[11px] overflow-y-auto space-y-1 text-gray-400 pr-1">
+                        <div class="text-blue-400/80">[System] الأداة جاهزة للاختبار...</div>
+                    </div>
                 </div>
 
                 <!-- Textarea / Bulk Parser Box -->
@@ -126,7 +126,7 @@
                     </button>
                 </div>
 
-                <!-- Direct Single Input Box (تم دمج الرابط، الشفرات، واليوزر أجينت في مربع واحد) -->
+                <!-- Direct Single Input Box -->
                 <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 shadow-sm">
                     <h2 class="text-xs font-bold text-blue-400 flex items-center gap-2">
                         <i class="fa-solid fa-bolt"></i> إدخال واختبار سريع
@@ -447,6 +447,7 @@
                 
                 const hasDRM = ch.k1 && ch.k2;
 
+                // تم إزالة أيقونة الـ Play، وأصبح العنصر بأكمله يشغل القناة بمجرد النقر
                 card.innerHTML = `
                     <div class="flex items-center gap-2 overflow-hidden flex-1" onclick="playStream('${ch.name}', '${ch.url}', '${ch.k1}', '${ch.k2}')">
                         <span class="text-xs text-gray-500 font-mono">#${index + 1}</span>
@@ -468,18 +469,15 @@
                         <button onclick="copyCodeLine(${index}, event)" title="نسخ السطر للإضافة للكود الأصلي" class="p-1.5 bg-slate-800 hover:bg-emerald-600/30 text-gray-400 hover:text-emerald-400 rounded transition">
                             <i class="fa-solid fa-code text-[10px]"></i>
                         </button>
-                        
-                        <!-- أيقونة التشغيل -->
-                        <button onclick="playStream('${ch.name}', '${ch.url}', '${ch.k1}', '${ch.k2}')" class="p-1.5 bg-blue-600/20 text-blue-400 hover:bg-blue-600 hover:text-white rounded transition">
-                            <i class="fa-solid fa-play text-[10px]"></i>
-                        </button>
                     </div>
                 `;
 
                 listContainer.appendChild(card);
             });
 
+            // إظهار القسم وجعله flex
             wrapper.classList.remove('hidden');
+            wrapper.classList.add('flex');
         }
 
         function clearAll() {
@@ -488,7 +486,11 @@
             document.getElementById('singleK1').value = '';
             document.getElementById('singleK2').value = '';
             document.getElementById('bulkInput').value = '';
-            document.getElementById('parsedChannelsWrapper').classList.add('hidden');
+            
+            const wrapper = document.getElementById('parsedChannelsWrapper');
+            wrapper.classList.add('hidden');
+            wrapper.classList.remove('flex');
+            
             document.getElementById('parsedList').innerHTML = '';
             window.extractedChannelsList = [];
             clearLog();
