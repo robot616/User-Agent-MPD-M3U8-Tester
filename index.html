@@ -17,19 +17,17 @@
     <style>
         body { background-color: #0f172a; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
         
-        /* إخفاء أيقونات المشغل التي لا نحتاجها لضمان نظافة الشريط (كودك الأصلي) */
         .jw-icon-playlist, .jw-icon-next, .jw-related-btn { display: none !important; }
 
-        /* كود أيقونة ملء الشاشة المربع المتقطع المتغير (كودك الأصلي) */
         .jw-icon-fullscreen svg { display: none !important; }
         .jw-icon-fullscreen {
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTggM0g1YTIgMiAwIDAgMC0yIDJ2M20xOCAwVjVhMiAyIDAgMCAwLTItMmgtM20wIDE4aDNhMiAyIDAgMCAwIDItMnYtM00zIDE2djNhMiAyIDAgMCAwIDIgMmgzIj48L3BhdGg+PC9zdmc+');
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNOCAzSDVhMiAyIDAgMCAwLTIgMnYzbTE4IDBWNWEyIDIgMCAwIDAtMi0yaC0zbTAgMThoM2EyIDIgMCAwIDAgMi0ydi0zTTMgMTZ2M2EyIDIgMCAwIDAgMiAyaDMiPjwvcGF0aD48L3N2Zz4=');
             background-size: 16px;
             background-position: center;
             background-repeat: no-repeat;
         }
         .jw-flag-fullscreen .jw-icon-fullscreen {
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTggM3YzYTIgMiAwIDAgMS0yIDJIM20xOCAwaC0zYTIgMiAwIDAgMS0yLTJWM20wIDE4di0zYTIgMiAwIDAgMSAyLTJoM00zIDE2aDNhMiAyIDAgMCAxIDIgMnYzIj48L3BhdGg+PC9zdmc+');
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNOCAzdjNhMiAyIDAgMCAxLTIgMkgzbTE4IDBoLTNhMiAyIDAgMCAxLTItMlYzbTAgMTh2LTNhMiAyIDAgMCAxIDItMmgzTTMgMTZoM2EyIDIgMCAwIDEgMiAydjMiPjwvcGF0aD48L3N2Zz4=');
         }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -39,7 +37,7 @@
 </head>
 <body class="h-screen flex flex-col overflow-hidden bg-[#0f172a]">
 
-    <!-- Header / شريط العنوان -->
+    <!-- Header -->
     <header class="bg-slate-900 border-b border-slate-800 px-6 py-2.5 flex items-center justify-between shadow-lg flex-shrink-0">
         <div class="flex items-center gap-3">
             <div class="bg-blue-600/20 text-blue-400 p-2 rounded-xl border border-blue-500/30">
@@ -48,7 +46,7 @@
             <div>
                 <h1 class="text-base font-bold text-white flex items-center gap-2">
                     User Agent MPD-M3U8 Tester
-                    <span class="text-[10px] font-normal bg-blue-500/10 text-blue-400 px-1.5 py-0.5 rounded border border-blue-500/20">v1.5</span>
+                    <span class="text-[10px] font-normal bg-blue-500/10 text-blue-400 px-1.5 py-0.5 rounded border border-blue-500/20">v2.0</span>
                 </h1>
             </div>
         </div>
@@ -71,10 +69,10 @@
                 <h2 class="text-xs font-bold text-emerald-400 flex items-center gap-2">
                     <i class="fa-solid fa-code"></i> استخراج وتجربة أكواد وقوائم كاملة
                 </h2>
-                <span class="text-[10px] text-gray-400">يدعم Kodi M3U, JS Objects, Links</span>
+                <span class="text-[10px] text-gray-400">يدعم Kodi M3U, HTML/JWPlayer, JS Objects, Links</span>
             </div>
             <div class="flex gap-3">
-                <textarea id="bulkInput" rows="3" placeholder="ألصق كود قنوات كامل، أسطر Kodi، أو روابط هنا..." class="flex-1 bg-slate-950 border border-slate-800 text-xs text-gray-300 p-2.5 rounded-lg focus:outline-none focus:border-emerald-500 font-mono transition resize-none"></textarea>
+                <textarea id="bulkInput" rows="3" placeholder="ألصق كود قنوات كامل، أسطر Kodi، صفحات HTML، أو روابط هنا..." class="flex-1 bg-slate-950 border border-slate-800 text-xs text-gray-300 p-2.5 rounded-lg focus:outline-none focus:border-emerald-500 font-mono transition resize-none"></textarea>
                 <button onclick="parseAndLoadChannels()" class="w-32 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs transition flex flex-col items-center justify-center gap-1.5 shadow-lg shadow-emerald-900/20">
                     <i class="fa-solid fa-wand-magic-sparkles text-lg"></i> استخراج
                 </button>
@@ -84,7 +82,7 @@
         <!-- 2. Direct Single Input Box -->
         <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 shadow-sm flex-shrink-0">
             <h2 class="text-xs font-bold text-blue-400 flex items-center gap-2 mb-3">
-                <i class="fa-solid fa-bolt"></i> إدخال واختبار سريع
+                <i class="fa-solid fa-bolt"></i> إدخال واختبار سريع (يتم التعبئة تلقائياً عند النقر على القناة)
             </h2>
             
             <div class="flex items-center gap-2">
@@ -225,7 +223,6 @@
             currentPlayer.on('ready', function() {
                 setStatus('يعمل الآن', 'playing');
                 
-                // كود الاسترتش الخاص بك الأصلي تماماً بدون أي تعديلات
                 let isStretched = false;
                 const diagonalCutArrow = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTQgMTBsNy03bS02IDBoNnY2bS0xMSA1bC03IDdtNiAwSDN2LTYiLz48L3N2Zz4=";
                 
@@ -279,7 +276,14 @@
             updateActiveChannelStyle();
             
             const ch = window.extractedChannelsList[index];
-            playStream(ch.name, ch.url, ch.k1, ch.k2);
+            if (ch) {
+                // تعبئة البيانات المستخرجة تلقائياً في مربع الإدخال السريع لمعاينتها
+                document.getElementById('singleUrl').value = ch.url || '';
+                document.getElementById('singleK1').value = ch.k1 || '';
+                document.getElementById('singleK2').value = ch.k2 || '';
+
+                playStream(ch.name, ch.url, ch.k1, ch.k2);
+            }
         }
 
         function updateActiveChannelStyle() {
@@ -312,50 +316,113 @@
         function parseInputText(text) {
             const channels = [];
 
-            const jsArrayObjMatches = [...text.matchAll(/name\s*:\s*["']([^"']+)["']\s*,\s*url\s*:\s*["']([^"']+)["'](?:\s*,\s*k1\s*:\s*["']([^"']+)["'])?(?:\s*,\s*k2\s*:\s*["']([^"']+)["'])?/gi)];
-            jsArrayObjMatches.forEach(m => {
-                if (m[2] && !channels.some(c => c.url === m[2])) {
-                    channels.push({ name: m[1].trim(), url: m[2], k1: m[3] || "", k2: m[4] || "" });
+            function addChannel(name, url, k1 = '', k2 = '') {
+                if (!url) return;
+                url = url.trim();
+                name = (name || '').trim() || `قناة ${channels.length + 1}`;
+                k1 = (k1 || '').trim();
+                k2 = (k2 || '').trim();
+
+                if (!channels.some(c => c.url === url)) {
+                    channels.push({ name, url, k1, k2 });
                 }
+            }
+
+            // 1. استخراج صيغ M3U / Kodi / EXTVLCOPT / KODIPROP
+            if (text.includes('#EXTINF')) {
+                const blocks = text.split('#EXTINF');
+                blocks.forEach(block => {
+                    if (!block.trim()) return;
+
+                    // اسم القناة
+                    let name = '';
+                    const nameMatch = block.match(/,(.+?)(?:\r?\n|$)/);
+                    if (nameMatch) {
+                        name = nameMatch[1].trim();
+                    }
+
+                    // الشفرات ClearKey (K1 & K2)
+                    let k1 = '', k2 = '';
+                    
+                    // استخراج المفاتيح بصيغ Kodi و EXTVLCOPT المختلفة
+                    const keyMatch = block.match(/(?:license_key|http-drm-license|inputstream\.adaptive\.license_key)\s*=\s*([a-fA-F0-9]{32}):([a-fA-F0-9]{32})/i)
+                                   || block.match(/(?:license_key|http-drm-license|inputstream\.adaptive\.license_key)\s*=\s*([a-fA-F0-9\-_]{20,64}):([a-fA-F0-9\-_]{20,64})/i);
+
+                    if (keyMatch) {
+                        k1 = keyMatch[1];
+                        k2 = keyMatch[2];
+                    } else {
+                        const k1Match = block.match(/keyId\s*=\s*["']?([a-fA-F0-9]{32})["']?/i);
+                        const k2Match = block.match(/key\s*=\s*["']?([a-fA-F0-9]{32})["']?/i);
+                        if (k1Match && k2Match) {
+                            k1 = k1Match[1];
+                            k2 = k2Match[1];
+                        }
+                    }
+
+                    // رابط البث
+                    const lines = block.split(/\r?\n/);
+                    let url = '';
+                    for (let line of lines) {
+                        line = line.trim();
+                        if (line.startsWith('http://') || line.startsWith('https://')) {
+                            // تجنب أسطر السيرفرات التي تكون في وسوم التشفير
+                            if (!line.includes('http-drm-license=') && !line.includes('license-key=')) {
+                                url = line;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (url) {
+                        addChannel(name, url, k1, k2);
+                    }
+                });
+            }
+
+            // 2. استخراج أكواد JWPlayer / HTML / JS
+            const jwDrmMatches = [...text.matchAll(/["']?file["']?\s*:\s*["'](https?:\/\/[^"'\s]+)["'][\s\S]*?["']?keyId["']?\s*:\s*["']([a-fA-F0-9]{32}|[a-fA-F0-9\-]{20,64})["'][\s\S]*?["']?key["']?\s*:\s*["']([a-fA-F0-9]{32}|[a-fA-F0-9\-]{20,64})["']/gi)];
+            jwDrmMatches.forEach(m => {
+                addChannel('', m[1], m[2], m[3]);
             });
 
-            const jsVarMatches = [...text.matchAll(/manifestUrl[^\n"']*["'](https?:\/\/[^"'\s]+)["'][\s\S]*?keyId[^\n"']*["']([a-fA-F0-9]{32})["'][\s\S]*?key2?[^\n"']*["']([a-fA-F0-9]{32})["']/gi)];
-            jsVarMatches.forEach((m) => {
-                if (!channels.some(c => c.url === m[1])) {
-                    channels.push({ name: `قناة JS Variable ${channels.length + 1}`, url: m[1], k1: m[2], k2: m[3] });
-                }
-            });
-
-            const mergedMatches = [...text.matchAll(/license_key=([a-fA-F0-9]{32}):([a-fA-F0-9]{32})(https?:\/\/[^\s"'\)]+)/gi)];
-            mergedMatches.forEach((m) => {
-                if (!channels.some(c => c.url === m[3])) {
-                    channels.push({ name: `قناة Kodi Merged ${channels.length + 1}`, url: m[3], k1: m[1], k2: m[2] });
-                }
-            });
-
-            const m3uBlocks = text.split('#EXTINF');
-            m3uBlocks.forEach(block => {
-                if (!block.trim()) return;
-                const nameMatch = block.match(/,(.+?)(?:\r?\n|$)/);
-                const keyMatch = block.match(/license_key=([a-fA-F0-9]{32}):([a-fA-F0-9]{32})/i);
-                const urlMatch = block.match(/(https?:\/\/[^\s"'\)]+)/i);
-                if (urlMatch && !channels.some(c => c.url === urlMatch[1])) {
-                    channels.push({ name: nameMatch ? nameMatch[1].trim() : `قناة M3U ${channels.length + 1}`, url: urlMatch[1], k1: keyMatch ? keyMatch[1] : "", k2: keyMatch ? keyMatch[2] : "" });
-                }
-            });
-
-            const jsObjMatches = [...text.matchAll(/["']([a-zA-Z0-9_\u0600-\u06FF\s-]+)["']\s*:\s*\{\s*url\s*:\s*["']([^"']+)["'](?:,\s*k1\s*:\s*["']([^"']+)["'])?(?:,\s*k2\s*:\s*["']([^"']+)["'])?/gi)];
+            // 3. استخراج كائنات JS Objects المعرفة
+            const jsObjMatches = [...text.matchAll(/\{[\s\S]*?url\s*:\s*["'](https?:\/\/[^"'\s]+)["'][\s\S]*?\}/gi)];
             jsObjMatches.forEach(m => {
-                if (m[2] && !channels.some(c => c.url === m[2])) {
-                    channels.push({ name: m[1].trim(), url: m[2], k1: m[3] || "", k2: m[4] || "" });
+                const str = m[0];
+                const u = str.match(/url\s*:\s*["']([^"']+)["']/i);
+                const nameM = str.match(/(?:name|id)\s*:\s*["']([^"']+)["']/i);
+                const k1M = str.match(/(?:k1|keyId)\s*:\s*["']([^"']+)["']/i);
+                const k2M = str.match(/(?:k2|key)\s*:\s*["']([^"']+)["']/i);
+                if (u) {
+                    addChannel(nameM ? nameM[1] : '', u[1], k1M ? k1M[1] : '', k2M ? k2M[1] : '');
                 }
             });
 
+            // 4. استخراج مصفوفات JS
+            const arrayObjMatches = [...text.matchAll(/name\s*:\s*["']([^"']+)["']\s*,\s*url\s*:\s*["']([^"']+)["'](?:\s*,\s*k1\s*:\s*["']([^"']+)["'])?(?:\s*,\s*k2\s*:\s*["']([^"']+)["'])?/gi)];
+            arrayObjMatches.forEach(m => {
+                addChannel(m[1], m[2], m[3] || '', m[4] || '');
+            });
+
+            // 5. روابط Kodi المدمجة مباشرة
+            const mergedMatches = [...text.matchAll(/license_key=([a-fA-F0-9]{32}):([a-fA-F0-9]{32})(https?:\/\/[^\s"'\)]+)/gi)];
+            mergedMatches.forEach(m => {
+                addChannel('', m[3], m[1], m[2]);
+            });
+
+            // 6. الاحتياطي العامة: في حال عدم مطابقة الطرق السابقة
             if (channels.length === 0) {
                 const urls = text.match(/https?:\/\/[^\s"'\)]+/g) || [];
+                const validUrls = urls.filter(u => !u.includes('license') && !u.includes('acquire-license'));
+                const targetUrls = validUrls.length > 0 ? validUrls : urls;
+
                 const keys = text.match(/([a-fA-F0-9]{32})/g) || [];
-                urls.forEach((url, i) => { channels.push({ name: `قناة مكتشفة ${i + 1}`, url: url, k1: keys[i * 2] || "", k2: keys[i * 2 + 1] || "" }); });
+                targetUrls.forEach((u, i) => {
+                    addChannel(`قناة مكتشفة ${i + 1}`, u, keys[i * 2] || '', keys[i * 2 + 1] || '');
+                });
             }
+
             return channels;
         }
 
