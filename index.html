@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>User Agent MPD-M3U8 Tester</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer" />
+    
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3159/3159073.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.js"></script>
+    <script src="//ssl.p.jwpcdn.com/player/v/8.26.0/jwplayer.js"></script>
+    <script>jwplayer.key = "XSuP4qMl+9tK17QNb+4+th2Pm9AWgMO/cYH8CI0HGGr7bdjo";</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
+        
+        .jw-icon-playlist, .jw-icon-next, .jw-related-btn { display: none !important; }
+        .jw-icon-fullscreen svg { display: none !important; }
+        .jw-icon-fullscreen {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTggM3A1YTIgMiAwIDAgMC0yIDJ2M20xOCAwVjVhMiAyIDAgMCAwLTItMmgtM20wIDE4aDNhMiAyIDAgMCAwIDItMnYtM00zIDE2djNhMiAyIDAgMCAwIDIgMmgzIj48L3BhdGg+PC9zdmc+');
+            background-size: 16px; background-position: center; background-repeat: no-repeat;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+    <!-- Header / شريط العنوان -->
+    <header class="bg-slate-900 border-b border-slate-800 px-6 py-3 flex items-center justify-between shadow-lg">
+        <div class="flex items-center gap-3">
+            <div class="bg-blue-600/20 text-blue-400 p-2.5 rounded-xl border border-blue-500/30">
+                <i class="fa-solid fa-flask-vial text-xl"></i>
+            </div>
+            <div>
+                <h1 class="text-lg font-bold text-white flex items-center gap-2">
+                    User Agent MPD-M3U8 Tester
+                    <span class="text-xs font-normal bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded border border-blue-500/20">v1.0</span>
+                </h1>
+                <p class="text-xs text-gray-400">أداة اختبار الروابط، الشفرات، واستخراج القنوات بتزوير الهوية تلقائياً</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-2">
+            <button onclick="clearAll()" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center gap-1.5">
+                <i class="fa-solid fa-trash-can"></i> مسح الكل
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="flex-1 flex overflow-hidden">
+        
+        <!-- Left Section: Controls & Input -->
+        <div class="w-1/2 border-l border-slate-800 flex flex-col bg-slate-900/50">
+            
+            <!-- User Agent Field -->
+            <div class="p-4 border-b border-slate-800 bg-slate-900">
+                <label class="block text-xs font-bold text-gray-300 mb-1.5 flex items-center justify-between">
+                    <span><i class="fa-solid fa-id-badge text-blue-400 ml-1"></i> User-Agent المستحدم للطلبات:</span>
+                    <span class="text-[10px] text-emerald-400 font-normal"><i class="fa-solid fa-circle-check"></i> يتم تطبيقه تلقائياً</span>
+                </label>
+                <input type="text" id="uaInput" value="Mozilla/5.0 (Smart-TV; Linux; Tizen 6.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 TV Safari/537.36" class="w-full bg-slate-950 border border-slate-700 text-xs text-gray-300 p-2.5 rounded-lg focus:outline-none focus:border-blue-500 font-mono transition">
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-4 space-y-4">
+                
+                <!-- Direct Single Input Box -->
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 shadow-sm">
+                    <h2 class="text-xs font-bold text-blue-400 flex items-center gap-2">
+                        <i class="fa-solid fa-bolt"></i> إدخال سريع (رابط وشفرات مباشرة)
+                    </h2>
+                    <div>
+                        <input type="text" id="singleUrl" placeholder="رابط البث (MPD / M3U8)..." class="w-full bg-slate-950 border border-slate-800 text-xs text-white p-2.5 rounded-lg focus:outline-none focus:border-blue-500 transition">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" id="singleK1" placeholder="Key ID (k1)..." class="bg-slate-950 border border-slate-800 text-xs text-white p-2.5 rounded-lg focus:outline-none focus:border-blue-500 transition font-mono">
+                        <input type="text" id="singleK2" placeholder="Key Value (k2)..." class="bg-slate-950 border border-slate-800 text-xs text-white p-2.5 rounded-lg focus:outline-none focus:border-blue-500 transition font-mono">
+                    </div>
+                    <button onclick="playSingleLink()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg text-xs transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-play"></i> تشغيل / اختبار الرابط المباشر
+                    </button>
+                </div>
+
+                <!-- Textarea / Bulk Parser Box -->
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 shadow-sm">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-xs font-bold text-emerald-400 flex items-center gap-2">
+                            <i class="fa-solid fa-code"></i> استخراج وتجربة أكواد وقوائم كاملة
+                        </h2>
+                        <span class="text-[10px] text-gray-400">يدعم Kodi M3U, JS Objects, Merged Lines</span>
+                    </div>
+                    <textarea id="bulkInput" rows="7" placeholder="ألصق كود قنوات كامل، أسطر Kodi، كود جافاسكريبت، أو روابط مدمجة هنا..." class="w-full bg-slate-950 border border-slate-800 text-xs text-gray-300 p-3 rounded-lg focus:outline-none focus:border-emerald-500 font-mono transition resize-none"></textarea>
+                    
+                    <button onclick="parseAndLoadChannels()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-4 rounded-lg text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/20">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> استخراج القنوات واختبارها
+                    </button>
+                </div>
+
+                <!-- Parsed Channels List Container -->
+                <div id="parsedChannelsWrapper" class="hidden bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <h3 class="text-xs font-bold text-gray-300">القنوات المستخرجة (<span id="parsedCount" class="text-emerald-400">0</span>)</h3>
+                        <span class="text-[10px] text-gray-500">اضغط على أي قناة لتشغيلها فوراً</span>
+                    </div>
+                    <div id="parsedList" class="space-y-2 max-h-52 overflow-y-auto pr-1"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right Section: Player & Diagnostics Log -->
+        <div class="w-1/2 flex flex-col bg-slate-950 p-4 gap-4">
+            
+            <!-- Video Player Window -->
+            <div class="w-full aspect-video bg-black rounded-xl border border-slate-800 overflow-hidden relative shadow-2xl flex items-center justify-center">
+                <div id="playerContainer" class="w-full h-full">
+                    <div id="jwplayerDiv" style="width: 100%; height: 100%;"></div>
+                </div>
+            </div>
+
+            <!-- Player Controls Toolbar -->
+            <div class="flex items-center justify-between bg-slate-900 p-3 rounded-xl border border-slate-800">
+                <div class="flex items-center gap-2">
+                    <span id="statusBadge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-800 text-gray-400 border border-slate-700">
+                        <span class="w-2 h-2 rounded-full bg-gray-500"></span> غير متصل
+                    </span>
+                    <span id="activeChannelTitle" class="text-xs font-bold text-gray-300 truncate max-w-[200px]"></span>
+                </div>
+                <button onclick="stopPlayer()" class="bg-slate-800 hover:bg-slate-700 text-gray-300 border border-slate-700 px-3 py-1.5 rounded-lg text-xs transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-stop text-rose-400"></i> إيقاف البث
+                </button>
+            </div>
+
+            <!-- Diagnostic Log Console -->
+            <div class="flex-1 bg-slate-900 rounded-xl border border-slate-800 p-3 flex flex-col overflow-hidden">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-2 mb-2">
+                    <span class="text-xs font-bold text-gray-400 flex items-center gap-1.5">
+                        <i class="fa-solid fa-terminal text-blue-400"></i> سجل التشخيص والتصحيح (Log)
+                    </span>
+                    <button onclick="clearLog()" class="text-[10px] text-gray-500 hover:text-gray-300">تفرغ السجل</button>
+                </div>
+                <div id="logConsole" class="flex-1 font-mono text-[11px] overflow-y-auto space-y-1 text-gray-400 pr-1">
+                    <div class="text-blue-400/80">[System] الأداة جاهزة للاختبار...</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // --- 1. User-Agent Dynamic Interceptor ---
+        let customUA = document.getElementById('uaInput').value;
+
+        document.getElementById('uaInput').addEventListener('input', (e) => {
+            customUA = e.target.value.trim();
+            addLog(`تم تحديث User-Agent إلى: ${customUA.substring(0, 45)}...`, 'info');
+        });
+
+        (function() {
+            var originalFetch = window.fetch;
+            var originalXHR = window.XMLHttpRequest;
+            
+            window.fetch = function(url, options) {
+                options = options || {}; options.headers = options.headers || {};
+                options.headers['User-Agent'] = customUA;
+                return originalFetch.call(this, url, options);
+            };
+
+            var XHROpen = originalXHR.prototype.open;
+            originalXHR.prototype.open = function(method, url) {
+                XHROpen.apply(this, arguments);
+                this.setRequestHeader('User-Agent', customUA);
+            };
+        })();
+
+        // --- 2. Global State ---
+        let currentPlayer = null;
+
+        function addLog(msg, type = 'info') {
+            const logConsole = document.getElementById('logConsole');
+            const item = document.createElement('div');
+            const time = new Date().toLocaleTimeString('ar-EG', { hour12: false });
+            
+            let colorClass = 'text-gray-400';
+            if (type === 'success') colorClass = 'text-emerald-400';
+            if (type === 'error') colorClass = 'text-rose-400';
+            if (type === 'warn') colorClass = 'text-amber-400';
+            if (type === 'info') colorClass = 'text-blue-400';
+
+            item.className = `${colorClass} leading-relaxed`;
+            item.innerHTML = `<span class="text-slate-600">[${time}]</span> ${msg}`;
+            logConsole.appendChild(item);
+            logConsole.scrollTop = logConsole.scrollHeight;
+        }
+
+        function clearLog() {
+            document.getElementById('logConsole').innerHTML = '';
+        }
+
+        function setStatus(text, state) {
+            const statusBadge = document.getElementById('statusBadge');
+            let bg = 'bg-slate-800 text-gray-400 border-slate-700';
+            let dot = 'bg-gray-500';
+
+            if (state === 'playing') {
+                bg = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+                dot = 'bg-emerald-500 animate-pulse';
+            } else if (state === 'loading') {
+                bg = 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+                dot = 'bg-amber-500 animate-ping';
+            } else if (state === 'error') {
+                bg = 'bg-rose-500/10 text-rose-400 border-rose-500/30';
+                dot = 'bg-rose-500';
+            }
+
+            statusBadge.className = `inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${bg}`;
+            statusBadge.innerHTML = `<span class="w-2 h-2 rounded-full ${dot}"></span> ${text}`;
+        }
+
+        // --- 3. Core Player Engine ---
+        function playStream(name, url, k1, k2) {
+            if (!url) {
+                addLog('خطأ: لم يتم إدخال رابط للبث!', 'error');
+                return;
+            }
+
+            document.getElementById('activeChannelTitle').innerText = name || 'رابط اختباري';
+            setStatus('جاري التحميل...', 'loading');
+            addLog(`جاري البدء: ${name || 'قناة غير مسمّاة'}`, 'info');
+            addLog(`الرابط: ${url}`, 'info');
+
+            if (k1 && k2) {
+                addLog(`شفرة ClearKey المفعلة: ${k1}:${k2}`, 'warn');
+            } else {
+                addLog(`البث بدون شفرة DRM مشفرة.`, 'info');
+            }
+
+            stopPlayer();
+
+            const setupConfig = {
+                file: url,
+                width: "100%",
+                height: "100%",
+                autostart: true,
+                stretching: "uniform"
+            };
+
+            if (k1 && k2) {
+                setupConfig.drm = { clearkey: { keyId: k1, key: k2 } };
+            }
+
+            currentPlayer = jwplayer("jwplayerDiv").setup(setupConfig);
+
+            currentPlayer.on('ready', function() {
+                addLog('المشغل جاهز ومستعد للتشغيل.', 'success');
+                setStatus('يعمل الآن', 'playing');
+
+                let isStretched = false;
+                const diagonalCutArrow = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTQgMTBsNy03bS02IDBoNnY2bS0xMSA1bC03IDdtNiAwSDN2LTYiLz48L3N2Zz4=";
+                
+                currentPlayer.addButton(
+                    diagonalCutArrow, "توسيع/تضييق الصورة", 
+                    function() {
+                        let videoEl = document.querySelector('.jw-video');
+                        if (!isStretched) { 
+                            currentPlayer.setConfig({ stretching: "exactfit" }); 
+                            if(videoEl) { videoEl.style.objectFit = 'fill'; videoEl.style.width = '100%'; videoEl.style.height = '100%'; }
+                            isStretched = true; 
+                        } else { 
+                            currentPlayer.setConfig({ stretching: "uniform" }); 
+                            if(videoEl) { videoEl.style.objectFit = 'contain'; }
+                            isStretched = false; 
+                        }
+                    }, "stretch-button"
+                );
+            });
+
+            currentPlayer.on('audioTracks', function() {
+                const tracks = currentPlayer.getAudioTracks();
+                addLog(`تم العثور على ${tracks.length} مسار صوتي.`, 'info');
+                tracks.forEach((track, index) => {
+                    if (track.label.toLowerCase().includes("ara") || track.label.includes("عربي")) {
+                        currentPlayer.setCurrentAudioTrack(index);
+                        addLog(`تم اختيار المسار الصوتي العربي تلقائياً: ${track.label}`, 'success');
+                    }
+                });
+            });
+
+            currentPlayer.on('error', function(e) {
+                addLog(`خطأ في التشغيل: ${e.message}`, 'error');
+                setStatus('فشل التشغيل', 'error');
+            });
+        }
+
+        function stopPlayer() {
+            if (currentPlayer) {
+                currentPlayer.remove();
+                currentPlayer = null;
+                addLog('تم إيقاف المشغل وتفريغ الذاكرة.', 'info');
+            }
+            setStatus('متوقف', 'idle');
+            document.getElementById('activeChannelTitle').innerText = '';
+        }
+
+        function playSingleLink() {
+            const url = document.getElementById('singleUrl').value.trim();
+            const k1 = document.getElementById('singleK1').value.trim();
+            const k2 = document.getElementById('singleK2').value.trim();
+            playStream('اختبار سريّع', url, k1, k2);
+        }
+
+        // --- 4. Smart Auto-Parser Engine ---
+        function parseInputText(text) {
+            const channels = [];
+
+            // Pattern 1: JS getUrlParam / var manifestUrl
+            const jsVarMatches = [...text.matchAll(/manifestUrl[^\n"']*["'](https?:\/\/[^"'\s]+)["'][\s\S]*?keyId[^\n"']*["']([a-fA-F0-9]{32})["'][\s\S]*?key2?[^\n"']*["']([a-fA-F0-9]{32})["']/gi)];
+            jsVarMatches.forEach((m) => {
+                channels.push({
+                    name: `قناة JS Variable ${channels.length + 1}`,
+                    url: m[1], k1: m[2], k2: m[3]
+                });
+            });
+
+            // Pattern 2: Merged KODIPROP key + URL line
+            const mergedMatches = [...text.matchAll(/license_key=([a-fA-F0-9]{32}):([a-fA-F0-9]{32})(https?:\/\/[^\s"'\)]+)/gi)];
+            mergedMatches.forEach((m) => {
+                channels.push({
+                    name: `قناة Kodi Merged ${channels.length + 1}`,
+                    url: m[3], k1: m[1], k2: m[2]
+                });
+            });
+
+            // Pattern 3: Standard M3U blocks with #EXTINF
+            const m3uBlocks = text.split('#EXTINF');
+            m3uBlocks.forEach(block => {
+                if (!block.trim()) return;
+                const nameMatch = block.match(/,(.+?)(?:\r?\n|$)/);
+                const keyMatch = block.match(/license_key=([a-fA-F0-9]{32}):([a-fA-F0-9]{32})/i);
+                const urlMatch = block.match(/(https?:\/\/[^\s"'\)]+)/i);
+
+                if (urlMatch) {
+                    const url = urlMatch[1];
+                    if (!channels.some(c => c.url === url)) {
+                        channels.push({
+                            name: nameMatch ? nameMatch[1].trim() : `قناة M3U ${channels.length + 1}`,
+                            url: url,
+                            k1: keyMatch ? keyMatch[1] : "",
+                            k2: keyMatch ? keyMatch[2] : ""
+                        });
+                    }
+                }
+            });
+
+            // Pattern 4: JS Object Syntax like "name": { url: "...", k1: "...", k2: "..." }
+            const jsObjMatches = [...text.matchAll(/["']?([\w\u0600-\u06FF\s-]+)["']?\s*:\s*\{\s*url\s*:\s*["']([^"']+)["'](?:,\s*k1\s*:\s*["']([^"']+)["'])?(?:,\s*k2\s*:\s*["']([^"']+)["'])?/gi)];
+            jsObjMatches.forEach(m => {
+                const url = m[2];
+                if (url && !channels.some(c => c.url === url)) {
+                    channels.push({
+                        name: m[1].trim(),
+                        url: url,
+                        k1: m[3] || "",
+                        k2: m[4] || ""
+                    });
+                }
+            });
+
+            // Fallback Generic Scanner if nothing captured yet
+            if (channels.length === 0) {
+                const urls = text.match(/https?:\/\/[^\s"'\)]+/g) || [];
+                const keys = text.match(/([a-fA-F0-9]{32})/g) || [];
+
+                urls.forEach((url, i) => {
+                    channels.push({
+                        name: `قناة مكتشفة ${i + 1}`,
+                        url: url,
+                        k1: keys[i * 2] || "",
+                        k2: keys[i * 2 + 1] || ""
+                    });
+                });
+            }
+
+            return channels;
+        }
+
+        function parseAndLoadChannels() {
+            const rawText = document.getElementById('bulkInput').value;
+            if (!rawText.trim()) {
+                addLog('يرجى وضع كود أو أسطر روابط أولاً للاستخراج!', 'warn');
+                return;
+            }
+
+            const channels = parseInputText(rawText);
+            
+            if (channels.length === 0) {
+                addLog('لم يتم العثور على أي روابط صالحة داخل النص!', 'error');
+                return;
+            }
+
+            addLog(`نجح المحلل الذكي في استخراج (${channels.length}) قناة!`, 'success');
+
+            const wrapper = document.getElementById('parsedChannelsWrapper');
+            const listContainer = document.getElementById('parsedList');
+            const countSpan = document.getElementById('parsedCount');
+
+            countSpan.innerText = channels.length;
+            listContainer.innerHTML = '';
+
+            channels.forEach((ch, index) => {
+                const card = document.createElement('div');
+                card.className = "p-2.5 bg-slate-950 hover:bg-slate-800 rounded-lg border border-slate-800 transition flex items-center justify-between cursor-pointer group";
+                
+                const hasDRM = ch.k1 && ch.k2;
+
+                card.innerHTML = `
+                    <div class="flex items-center gap-2 overflow-hidden">
+                        <span class="text-xs text-gray-500 font-mono">#${index + 1}</span>
+                        <div class="truncate">
+                            <div class="text-xs font-bold text-gray-200 group-hover:text-blue-400 transition truncate">${ch.name}</div>
+                            <div class="text-[10px] text-gray-500 font-mono truncate">${ch.url}</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        ${hasDRM ? '<span class="text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-1.5 py-0.5 rounded">DRM</span>' : '<span class="text-[9px] bg-slate-800 text-gray-400 px-1.5 py-0.5 rounded">Free</span>'}
+                        <i class="fa-solid fa-play text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition"></i>
+                    </div>
+                `;
+
+                card.onclick = () => playStream(ch.name, ch.url, ch.k1, ch.k2);
+                listContainer.appendChild(card);
+            });
+
+            wrapper.classList.remove('hidden');
+
+            // Auto-play the first channel automatically
+            playStream(channels[0].name, channels[0].url, channels[0].k1, channels[0].k2);
+        }
+
+        function clearAll() {
+            stopPlayer();
+            document.getElementById('singleUrl').value = '';
+            document.getElementById('singleK1').value = '';
+            document.getElementById('singleK2').value = '';
+            document.getElementById('bulkInput').value = '';
+            document.getElementById('parsedChannelsWrapper').classList.add('hidden');
+            document.getElementById('parsedList').innerHTML = '';
+            clearLog();
+            addLog('تم مسح جميع البيانات والمدخلات.', 'info');
+        }
+    </script>
+</body>
+</html>
