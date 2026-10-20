@@ -18,10 +18,17 @@
         body { background-color: #0f172a; color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; }
         
         .jw-icon-playlist, .jw-icon-next, .jw-related-btn { display: none !important; }
+        
+        /* إظهار أيقونة ملء الشاشة بشكل سليم وبدون أخطاء */
         .jw-icon-fullscreen svg { display: none !important; }
         .jw-icon-fullscreen {
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTggM3A1YTIgMiAwIDAgMC0yIDJ2M20xOCAwVjVhMiAyIDAgMCAwLTItMmgtM20wIDE4aDNhMiAyIDAgMCAwIDItMnYtM00zIDE2djNhMiAyIDAgMCAwIDIgMmgzIj48L3BhdGg+PC9zdmc+');
-            background-size: 16px; background-position: center; background-repeat: no-repeat;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTggM3A1YTIgMiAwIDAgMC0yIDJ2M20xOCAwVjVhMiAyIDAgMCAwLTItMmgtM20wIDE4aDNhMiAyIDAgMCAwIDItMnYtM00zIDE2djNhMiAyIDAgMCAwIDIgMmgzIi8+PC9zdmc+') !important;
+            background-size: 18px !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+        }
+        .jw-flag-fullscreen .jw-icon-fullscreen {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTggM3YzYTIgMiAwIDAgMS0yIDJIM20xOCAwaC0zYTIgMiAwIDAgMS0yLTJWM20wIDE4di0zYTIgMiAwIDAgMSAyLTJoM00zIDE2aDNhMiAyIDAgMCAxIDIgMnYzIi8+PC9zdmc+') !important;
         }
 
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -40,12 +47,11 @@
             <div>
                 <h1 class="text-base font-bold text-white flex items-center gap-2">
                     User Agent MPD-M3U8 Tester
-                    <span class="text-[10px] font-normal bg-blue-500/10 text-blue-400 px-1.5 py-0.5 rounded border border-blue-500/20">v1.3</span>
+                    <span class="text-[10px] font-normal bg-blue-500/10 text-blue-400 px-1.5 py-0.5 rounded border border-blue-500/20">v1.4</span>
                 </h1>
             </div>
         </div>
         <div class="flex items-center gap-2">
-            <!-- أزرار بأيقونات فقط -->
             <button onclick="copyAllLines()" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 p-2 rounded-lg text-sm transition" title="نسخ جميع أسطر الكود">
                 <i class="fa-solid fa-copy"></i>
             </button>
@@ -58,7 +64,7 @@
     <!-- Main Container -->
     <main class="flex-1 flex flex-col gap-4 p-4 overflow-y-auto">
         
-        <!-- 1. Textarea / Bulk Parser Box (الاستخراج الجماعي في الأعلى) -->
+        <!-- 1. Textarea / Bulk Parser Box (الاستخراج الجماعي) -->
         <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 shadow-sm flex-shrink-0">
             <div class="flex justify-between items-center mb-2">
                 <h2 class="text-xs font-bold text-emerald-400 flex items-center gap-2">
@@ -81,23 +87,18 @@
             </h2>
             
             <div class="flex items-center gap-2">
-                <!-- الرابط -->
                 <div class="flex-[3]">
                     <input type="text" id="singleUrl" placeholder="رابط البث (MPD / M3U8)..." class="w-full bg-slate-950 border border-slate-800 text-[11px] text-white p-2 rounded-md focus:outline-none focus:border-blue-500 transition font-mono">
                 </div>
-                <!-- K1 -->
                 <div class="flex-[1.5]">
                     <input type="text" id="singleK1" placeholder="Key ID (k1)..." class="w-full bg-slate-950 border border-slate-800 text-[11px] text-white p-2 rounded-md focus:outline-none focus:border-blue-500 transition font-mono">
                 </div>
-                <!-- K2 -->
                 <div class="flex-[1.5]">
                     <input type="text" id="singleK2" placeholder="Key Value (k2)..." class="w-full bg-slate-950 border border-slate-800 text-[11px] text-white p-2 rounded-md focus:outline-none focus:border-blue-500 transition font-mono">
                 </div>
-                <!-- User Agent -->
                 <div class="flex-[2]">
                     <input type="text" id="uaInput" value="Mozilla/5.0 (Smart-TV; Linux; Tizen 6.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 TV Safari/537.36" title="User-Agent" class="w-full bg-slate-950 border border-slate-800 text-[11px] text-emerald-400 p-2 rounded-md focus:outline-none focus:border-emerald-500 font-mono transition">
                 </div>
-                <!-- زر التشغيل -->
                 <div class="flex-none">
                     <button onclick="playSingleLink()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-md text-[11px] transition flex items-center justify-center gap-1.5 h-full whitespace-nowrap">
                         <i class="fa-solid fa-play"></i> تشغيل
@@ -106,12 +107,11 @@
             </div>
         </div>
 
-        <!-- 3. Bottom Section: Player (Right) & Parsed Channels (Left) -->
+        <!-- 3. Bottom Section: Player & Parsed Channels -->
         <div class="flex flex-1 gap-4 min-h-[350px]">
             
             <!-- Player Area (يمين) -->
             <div class="flex-1 flex flex-col bg-slate-950 p-3 rounded-xl border border-slate-800 shadow-lg">
-                <!-- Player Controls Toolbar -->
                 <div class="flex items-center justify-between mb-3">
                     <div class="flex items-center gap-2">
                         <span id="statusBadge" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-slate-800 text-gray-400 border border-slate-700">
@@ -124,7 +124,6 @@
                     </button>
                 </div>
 
-                <!-- Video Player Window -->
                 <div class="flex-1 w-full bg-black rounded-lg border border-slate-800 overflow-hidden relative shadow-inner">
                     <div id="playerContainer" class="w-full h-full">
                         <div id="jwplayerDiv" style="width: 100%; height: 100%;"></div>
@@ -132,32 +131,23 @@
                 </div>
             </div>
 
-            <!-- Parsed Channels List (يسار - مساحة متوسطة) -->
+            <!-- Parsed Channels List (يسار) -->
             <div id="parsedChannelsWrapper" class="hidden w-[360px] bg-slate-900 p-3 rounded-xl border border-slate-800 shadow-lg flex-col overflow-hidden flex-shrink-0">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-2 mb-2">
                     <h3 class="text-xs font-bold text-gray-300">القنوات المستخرجة (<span id="parsedCount" class="text-emerald-400">0</span>)</h3>
                 </div>
-                <div id="parsedList" class="flex-1 overflow-y-auto space-y-2 pr-1">
-                    <!-- Channels will be injected here -->
-                </div>
+                <div id="parsedList" class="flex-1 overflow-y-auto space-y-2 pr-1"></div>
             </div>
 
         </div>
     </main>
 
     <script>
-        // --- Global State ---
         let currentPlayer = null;
         window.extractedChannelsList = []; 
         let customUA = document.getElementById('uaInput').value;
         let activeChannelIndex = -1;
 
-        // --- 1. Silent Logger (بديلاً عن المربع المحذوف) ---
-        function addLog(msg, type = 'info') {
-            console.log(`[${type}] ${msg}`);
-        }
-
-        // --- 2. User-Agent Dynamic Interceptor ---
         document.getElementById('uaInput').addEventListener('input', (e) => {
             customUA = e.target.value.trim();
         });
@@ -177,7 +167,6 @@
             };
         })();
 
-        // --- 3. UI Utilities ---
         function setStatus(text, state) {
             const statusBadge = document.getElementById('statusBadge');
             let bg = 'bg-slate-800 text-gray-400 border-slate-700';
@@ -211,14 +200,13 @@
 
         function copyAllLines() {
             if(!window.extractedChannelsList || window.extractedChannelsList.length === 0) return;
-            let textToCopy = window.extractedChannelsList.map((ch, idx) =>
-                 `{ id: "${ch.name}", name: "${ch.name}", url: "${ch.url}", k1: "${ch.k1}", k2: "${ch.k2}" }`
+            let textToCopy = window.extractedChannelsList.map((ch) =>
+                `{ id: "${ch.name}", name: "${ch.name}", url: "${ch.url}", k1: "${ch.k1}", k2: "${ch.k2}" }`
             ).join(',\n');
             copyToClipboard(textToCopy);
             alert("تم نسخ أسطر الكود بنجاح!");
         }
 
-        // --- 4. Core Player Engine ---
         function playStream(name, url, k1, k2) {
             if (!url) return;
             document.getElementById('activeChannelTitle').innerText = name || 'رابط اختباري';
@@ -236,7 +224,7 @@
             currentPlayer.on('ready', function() {
                 setStatus('يعمل الآن', 'playing');
                 let isStretched = false;
-                const diagonalCutArrow = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTQgMTBsNy03bS02IDBoNnY2bS0xMSA1bC03IDdtNiAwSDN2LTYiLz48L3N2Zz4=";
+                const diagonalCutArrow = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTggM3A1YTIgMiAwIDAgMC0yIDJ2M20xOCAwVjVhMiAyIDAgMCAwLTItMmgtM20wIDE4aDNhMiAyIDAgMCAwIDItMnYtM00z IDE2djNhMiAyIDAgMCAwIDIgMmgzIi8+PC9zdmc+";
                 currentPlayer.addButton(diagonalCutArrow, "توسيع/تضييق الصورة", function() {
                     let videoEl = document.querySelector('.jw-video');
                     if (!isStretched) { 
@@ -270,7 +258,7 @@
         }
 
         function playSingleLink() {
-            activeChannelIndex = -1; // reset active list item
+            activeChannelIndex = -1;
             updateActiveChannelStyle();
             
             const url = document.getElementById('singleUrl').value.trim();
@@ -287,7 +275,6 @@
             playStream(ch.name, ch.url, ch.k1, ch.k2);
         }
 
-        // دالة التلوين للأخضر
         function updateActiveChannelStyle() {
             document.querySelectorAll('.channel-card').forEach(el => {
                 el.classList.remove('bg-green-600', 'border-green-500', 'shadow-md');
@@ -315,15 +302,35 @@
             }
         }
 
-        // --- 5. Smart Auto-Parser Engine ---
+        // --- محرك الاستخراج الدقيق المحدث ---
         function parseInputText(text) {
             const channels = [];
+
+            // النمط 1: صيغة مصفوفة الكائنات الدقيقة { name: "...", url: "...", k1: "...", k2: "..." }
+            const jsArrayObjMatches = [...text.matchAll(/name\s*:\s*["']([^"']+)["']\s*,\s*url\s*:\s*["']([^"']+)["'](?:\s*,\s*k1\s*:\s*["']([^"']+)["'])?(?:\s*,\s*k2\s*:\s*["']([^"']+)["'])?/gi)];
+            jsArrayObjMatches.forEach(m => {
+                if (m[2] && !channels.some(c => c.url === m[2])) {
+                    channels.push({ name: m[1].trim(), url: m[2], k1: m[3] || "", k2: m[4] || "" });
+                }
+            });
+
+            // النمط 2: صيغة JS variables (manifestUrl)
             const jsVarMatches = [...text.matchAll(/manifestUrl[^\n"']*["'](https?:\/\/[^"'\s]+)["'][\s\S]*?keyId[^\n"']*["']([a-fA-F0-9]{32})["'][\s\S]*?key2?[^\n"']*["']([a-fA-F0-9]{32})["']/gi)];
-            jsVarMatches.forEach((m) => { channels.push({ name: `قناة JS Variable ${channels.length + 1}`, url: m[1], k1: m[2], k2: m[3] }); });
+            jsVarMatches.forEach((m) => {
+                if (!channels.some(c => c.url === m[1])) {
+                    channels.push({ name: `قناة JS Variable ${channels.length + 1}`, url: m[1], k1: m[2], k2: m[3] });
+                }
+            });
 
+            // النمط 3: أسطر Kodi المدمجة
             const mergedMatches = [...text.matchAll(/license_key=([a-fA-F0-9]{32}):([a-fA-F0-9]{32})(https?:\/\/[^\s"'\)]+)/gi)];
-            mergedMatches.forEach((m) => { channels.push({ name: `قناة Kodi Merged ${channels.length + 1}`, url: m[3], k1: m[1], k2: m[2] }); });
+            mergedMatches.forEach((m) => {
+                if (!channels.some(c => c.url === m[3])) {
+                    channels.push({ name: `قناة Kodi Merged ${channels.length + 1}`, url: m[3], k1: m[1], k2: m[2] });
+                }
+            });
 
+            // النمط 4: قنوات M3U / EXTINF
             const m3uBlocks = text.split('#EXTINF');
             m3uBlocks.forEach(block => {
                 if (!block.trim()) return;
@@ -335,19 +342,15 @@
                 }
             });
 
-            const jsObjMatches = [...text.matchAll(/["']?([\w\u0600-\u06FF\s-]+)["']?\s*:\s*\{\s*url\s*:\s*["']([^"']+)["'](?:,\s*k1\s*:\s*["']([^"']+)["'])?(?:,\s*k2\s*:\s*["']([^"']+)["'])?/gi)];
+            // النمط 5: كائنات القواميس "channelName": { url: ... }
+            const jsObjMatches = [...text.matchAll(/["']([a-zA-Z0-9_\u0600-\u06FF\s-]+)["']\s*:\s*\{\s*url\s*:\s*["']([^"']+)["'](?:,\s*k1\s*:\s*["']([^"']+)["'])?(?:,\s*k2\s*:\s*["']([^"']+)["'])?/gi)];
             jsObjMatches.forEach(m => {
-                if (m[2] && !channels.some(c => c.url === m[2])) { channels.push({ name: m[1].trim(), url: m[2], k1: m[3] || "", k2: m[4] || "" }); }
-            });
-
-            // Pattern 5: JS Array Object Syntax { name: "...", url: "...", k1: "...", k2: "..." }
-            const jsArrayObjMatches = [...text.matchAll(/name\s*:\s*["']([^"']+)["']\s*,\s*url\s*:\s*["']([^"']+)["'](?:\s*,\s*k1\s*:\s*["']([^"']+)["'])?(?:\s*,\s*k2\s*:\s*["']([^"']+)["'])?/gi)];
-            jsArrayObjMatches.forEach(m => {
-                if (m[2] && !channels.some(c => c.url === m[2])) { 
-                    channels.push({ name: m[1].trim(), url: m[2], k1: m[3] || "", k2: m[4] || "" }); 
+                if (m[2] && !channels.some(c => c.url === m[2])) {
+                    channels.push({ name: m[1].trim(), url: m[2], k1: m[3] || "", k2: m[4] || "" });
                 }
             });
-            
+
+            // المرجع الاحتياطي العام
             if (channels.length === 0) {
                 const urls = text.match(/https?:\/\/[^\s"'\)]+/g) || [];
                 const keys = text.match(/([a-fA-F0-9]{32})/g) || [];
@@ -379,7 +382,7 @@
                     <div class="flex items-center gap-2 overflow-hidden flex-1" onclick="playParsedChannel(${index})">
                         <div class="truncate">
                             <div class="ch-name text-xs font-bold text-gray-200 transition truncate">${ch.name}</div>
-                            <div class="ch-details text-[9px] text-gray-500 font-mono transition mt-0.5">${hasDRM ? 'DRM • ' : 'Free • '} #${index + 1}</div>
+                            <div class="ch-details text-[9px] text-gray-500 font-mono transition mt-0.5">${hasDRM ? 'DRM' : 'Free'} • #${index + 1}</div>
                         </div>
                     </div>
                     
@@ -397,9 +400,6 @@
 
             wrapper.classList.remove('hidden');
             wrapper.classList.add('flex');
-            
-            // تشغيل أول قناة تلقائياً إذا أردت
-            // playParsedChannel(0);
         }
 
         function clearAll() {
