@@ -205,14 +205,14 @@
         function copyCodeLine(index, e) {
             e.stopPropagation();
             const ch = window.extractedChannelsList[index];
-            const codeStr = `{ id: "ch_${index+1}", name: "${ch.name}", url: "${ch.url}", k1: "${ch.k1}", k2: "${ch.k2}" }`;
+            const codeStr = `{ id: "${ch.name}", name: "${ch.name}", url: "${ch.url}", k1: "${ch.k1}", k2: "${ch.k2}" }`;
             copyToClipboard(codeStr);
         }
 
         function copyAllLines() {
             if(!window.extractedChannelsList || window.extractedChannelsList.length === 0) return;
             let textToCopy = window.extractedChannelsList.map((ch, idx) =>
-                `{ id: "ch_${idx+1}", name: "${ch.name}", url: "${ch.url}", k1: "${ch.k1}", k2: "${ch.k2}" }`
+                 `{ id: "${ch.name}", name: "${ch.name}", url: "${ch.url}", k1: "${ch.k1}", k2: "${ch.k2}" }`
             ).join(',\n');
             copyToClipboard(textToCopy);
             alert("تم نسخ أسطر الكود بنجاح!");
