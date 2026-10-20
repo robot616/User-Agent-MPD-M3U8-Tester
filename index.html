@@ -340,6 +340,14 @@
                 if (m[2] && !channels.some(c => c.url === m[2])) { channels.push({ name: m[1].trim(), url: m[2], k1: m[3] || "", k2: m[4] || "" }); }
             });
 
+            // Pattern 5: JS Array Object Syntax { name: "...", url: "...", k1: "...", k2: "..." }
+            const jsArrayObjMatches = [...text.matchAll(/name\s*:\s*["']([^"']+)["']\s*,\s*url\s*:\s*["']([^"']+)["'](?:\s*,\s*k1\s*:\s*["']([^"']+)["'])?(?:\s*,\s*k2\s*:\s*["']([^"']+)["'])?/gi)];
+            jsArrayObjMatches.forEach(m => {
+                if (m[2] && !channels.some(c => c.url === m[2])) { 
+                    channels.push({ name: m[1].trim(), url: m[2], k1: m[3] || "", k2: m[4] || "" }); 
+                }
+            });
+            
             if (channels.length === 0) {
                 const urls = text.match(/https?:\/\/[^\s"'\)]+/g) || [];
                 const keys = text.match(/([a-fA-F0-9]{32})/g) || [];
